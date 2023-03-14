@@ -2,7 +2,7 @@
 
 Software Engineering Group Project
 
-Contributors:
-Andrea Colussi
-Nikita Dalvi
-Shanika Perera
+Contributors:(`<br>`)
+Andrea Colussi(`<br>`)
+Nikita Dalvi(`<br>`)
+Shanika Perera(`<br>`)
