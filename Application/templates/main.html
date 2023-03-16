@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+h1 {
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Add a gradient background to the heading */
+h1 {
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Add a text shadow to the heading */
+h1 {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+/*h1 {
+  background-color: #f7df1e; /* Change this to your desired color */
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff; /* Change this to your desired text color */
+  font-size: 2em; /* Change this to your desired font size */
+  text-transform: uppercase;
+}*/
+h1 {
+  font-size: 36px; /* set font size */
+  text-shadow: 2px 2px 4px #000; /* add shadow */
+  letter-spacing: 2px; /* add spacing between letters */
+  text-transform: uppercase; /* convert text to uppercase */
+  margin: 0; /* remove margin */
+}
+
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Human Face Detection</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	 
+</head>
+<body>
+    <div class="container">
+	<div class="jumbotron" style="background-image: url('C:\\Users\\nikit\\Downloads\\HumanFaceDetectionRepo-main\\HumanFaceDetectionRepo-main\\PythonAPI\\static\\Images\\OIP4.jpg');">
+         <h1>Human Face Detection</h1>
+          </div>
+		<!--<div class="jumbotron" style="background-color: #f7df1e;">
+        <h1 id="my-heading">Human Face Detection</h1>-->
+		
+        
+		<!-- <form action="#" method="post" enctype="multipart/form-data">-->
+     
+	 <!--  <div class="image-preview">
+     <img id="img-preview" src="#" alt="Image Preview">
+    </div>
+	 <div class="form-group">
+        <label for="image">Choose Image:</label>
+        <input type="file" class="form-control" id="image" name="image">
+      </div>-->
+	  <div>
+<table style="position: absolute; top: 220px; bottom: 0; left: 130px; right: 0;">
+<tbody colspan='2'>
+<tr colspan='2' style="height: 50%; font-size: 20px;">
+<td colspan='1'>
+<div>
+<form id="uploadForm" method="post" action="/" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="imageFile">Select image to upload:</label>
+    <input type="file" class="form-control-file" id="imageFile" name="imageFile">
+  </div>
+  <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+</div>
+</td>
+<td colspan='1'>
+    <div id="loadingGif" style="display:none" colspan='1'>
+            <img src="https://i.stack.imgur.com/FhHRx.gif" alt="Loading...">
+        </div>
+		</td>
+</tr>
+</tbody>
+</table>
+	  </div>
+
+     
+
+        <!--<form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="imageUpload">Upload Image:</label>
+                <input type="file" class="form-control" id="imageUpload" name="imageUpload">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Upload Image</button>
+            </div>
+        </form>-->
+        <div id="loadingGif" style="display:none">
+            <img src="https://i.stack.imgur.com/FhHRx.gif" alt="Loading...">
+        </div>
+       
+        <div id="result"></div>
+    </div>
+    <script>
+
+        $(document).ready(function(){
+            $('#uploadForm').on('submit', function(e){
+                e.preventDefault();
+                $('#loadingGif').show();
+                $.ajax({
+                    url: 'backend.php', // Replace with your backend script URL
+                    type: 'POST',
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        $('#loadingGif').hide();
+                        $('#result').html(response);
+                    }
+                });
+            });
+        });
+		
+		$(document).ready(function() {
+			$("#my-heading").hover(function() {
+				$(this).animate({ color: "#FF5733" }, 200);
+							}, function() {
+					$(this).animate({ color: "#000000" }, 200);
+				});
+				});
+				
+				 $(document).ready(function() {
+    $("#my-heading").animate({
+      fontSize: "5rem",
+      letterSpacing: "0.1rem",
+      opacity: 1
+    }, 1500);
+  });
+$(function() {
+  var form = $('#uploadForm');
+  var fileInput = $('#imageFile');
+
+  form.submit(function(event) {
+    event.preventDefault();
+
+    // Get the file that was selected
+    var file = fileInput[0].files[0];
+
+    // Create a new FormData object to send the file
+    var formData = new FormData();
+    formData.append('file', file);
+
+    // Use AJAX to upload the file
+    $.ajax({
+      url: '/upload',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        // Handle success
+        console.log(data);
+      },
+      error: function(xhr, status, error) {
+        // Handle error
+        console.log(error);
+      }
+    });
+  });
+});
+
+
+    </script>
+</body>
+</html>
