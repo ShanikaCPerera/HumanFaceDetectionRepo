@@ -26,6 +26,12 @@ def upload_file():
             file = request.files['imageFile']
             filename = secure_filename(file.filename)
             file.save(filename)
+            #############
+            im1 = Image.open(file)
+            data1 = io.BytesIO()
+            im1.save(data1, "JPEG")
+            encoded_img_data1 = base64.b64encode(data1.getvalue())
+            #############
 
             #resend image
             im = Image.open(r"C:\Users\nikit\Downloads\HumanFaceDetectionRepo-main\HumanFaceDetectionRepo-main\Application\OIP4.jpg")
@@ -34,7 +40,7 @@ def upload_file():
             encoded_img_data = base64.b64encode(data.getvalue())
 
             # img = os.path.join(app.config['UPLOAD'], filename)
-            return render_template('main.html',img_data=encoded_img_data.decode('utf-8'))
+            return render_template('main.html',img_data=encoded_img_data.decode('utf-8'),img_data1=encoded_img_data1.decode('utf-8'),faceCount=5)
             #return jsonify({'image_data': encoded_img_data.decode('utf-8')})
 
     return render_template('main.html')

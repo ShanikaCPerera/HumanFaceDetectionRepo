@@ -98,6 +98,8 @@ h1 {
     <div id="image-container">
 
         <img id="image" onload="myfunctionOne()" src="data:image/jpeg;base64,{{ img_data }}" style="float:right">
+         <img id="image1" onload="myfunctionOne()" src="data:image/jpeg;base64,{{ img_data1 }}" style="float:right">
+        <p id="count">Number of faces count is :{{ faceCount }} </p>
          <img id="loading" src="C:\Users\nikit\Downloads\HumanFaceDetectionRepo-main\HumanFaceDetectionRepo-main\Application\templates\FhHRx.gif" alt="Loading...">
 
 
@@ -117,6 +119,7 @@ h1 {
 <script>
 
     const button = document.getElementById("load-button");
+    const count = document.getElementById("count");
 const image = document.getElementById('image');
 const loadingGif = document.getElementById("loading");
  document.getElementById('loading');
@@ -134,6 +137,20 @@ const imgPreview = document.getElementById("img-preview");
 chooseFile.addEventListener("change", function () {
   getImgData();
 });
+chooseFile.addEventListener("load", function () {
+  getImgData1();
+});
+function getImgData1() {
+  const files = {{ img_data1 }};
+  if (files) {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(files);
+    fileReader.addEventListener("load", function () {
+      imgPreview.style.display = "block";
+      imgPreview.innerHTML = '<img src="' + data:image/jpeg;base64,{{ img_data1 }} + '" />';
+    });
+  }
+}
 function getImgData() {
   const files = chooseFile.files[0];
   if (files) {
