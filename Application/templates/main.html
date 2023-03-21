@@ -77,7 +77,7 @@ h1 {
 <tr colspan='2' style="height: 50%; font-size: 20px;">
 <td colspan='1'>
 <div>
-<form id="uploadForm" method="post" action="/" enctype="multipart/form-data">
+<form id="uploadForm" method="post" action="http://127.0.0.1:8001/home" enctype="multipart/form-data">
   <div class="form-group">
     <label for="imageFile">Select image to upload:</label>
     <input type="file" class="form-control-file" id="imageFile" name="imageFile">
@@ -111,16 +111,18 @@ h1 {
             <img src="https://i.stack.imgur.com/FhHRx.gif" alt="Loading...">
         </div>
        
-        <div id="result"></div>
+        <div id="result">
+              <img id="picture" src="data:image/jpeg;base64,{{ img_data }}">
+        </div>
     </div>
     <script>
 
-        $(document).ready(function(){
+       /* $(document).ready(function(){
             $('#uploadForm').on('submit', function(e){
                 e.preventDefault();
                 $('#loadingGif').show();
                 $.ajax({
-                    url: 'backend.php', // Replace with your backend script URL
+                    url: 'http://127.0.0.1:8001/home', // Replace with your backend script URL
                     type: 'POST',
                     data: new FormData(this),
                     contentType: false,
@@ -164,7 +166,7 @@ $(function() {
 
     // Use AJAX to upload the file
     $.ajax({
-      url: '/upload',
+      url: '/home',
       type: 'POST',
       data: formData,
       processData: false,
@@ -180,7 +182,7 @@ $(function() {
     });
   });
 });
-
+*/
 
     </script>
 </body>
