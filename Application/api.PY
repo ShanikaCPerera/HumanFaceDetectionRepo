@@ -35,6 +35,7 @@ def upload_file():
 
             # img = os.path.join(app.config['UPLOAD'], filename)
             return render_template('main.html',img_data=encoded_img_data.decode('utf-8'))
+            #return jsonify({'image_data': encoded_img_data.decode('utf-8')})
 
     return render_template('main.html')
 

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <style>
+
+#loading {
+  display: none;
+}
 h1 {
   font-family: Arial, sans-serif;
   font-size: 36px;
@@ -45,25 +50,27 @@ h1 {
 
 </style>
 <head>
+
     <meta charset="UTF-8">
     <title>Human Face Detection</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	 
+
 </head>
 <body>
+
     <div class="container">
 	<div class="jumbotron" style="background-image: url('C:\\Users\\nikit\\Downloads\\HumanFaceDetectionRepo-main\\HumanFaceDetectionRepo-main\\PythonAPI\\static\\Images\\OIP4.jpg');">
          <h1>Human Face Detection</h1>
           </div>
 		<!--<div class="jumbotron" style="background-color: #f7df1e;">
         <h1 id="my-heading">Human Face Detection</h1>-->
-		
-        
+
+
 		<!-- <form action="#" method="post" enctype="multipart/form-data">-->
-     
+
 	 <!--  <div class="image-preview">
      <img id="img-preview" src="#" alt="Image Preview">
     </div>
@@ -79,110 +86,77 @@ h1 {
 <div>
 <form id="uploadForm" method="post" action="http://127.0.0.1:8001/home" enctype="multipart/form-data">
   <div class="form-group">
+        <div id="img-preview"></div>
     <label for="imageFile">Select image to upload:</label>
     <input type="file" class="form-control-file" id="imageFile" name="imageFile">
   </div>
-  <button type="submit" class="btn btn-primary">Upload</button>
+  <button id="load-button" onclick="myFunction()" class="btn btn-primary">Upload</button>
 </form>
 </div>
 </td>
-<td colspan='1'>
-    <div id="loadingGif" style="display:none" colspan='1'>
-            <img src="https://i.stack.imgur.com/FhHRx.gif" alt="Loading...">
-        </div>
+<td colspan='1' style="float:right">
+    <div id="image-container">
+
+        <img id="image" onload="myfunctionOne()" src="data:image/jpeg;base64,{{ img_data }}" style="float:right">
+         <img id="loading" src="C:\Users\nikit\Downloads\HumanFaceDetectionRepo-main\HumanFaceDetectionRepo-main\Application\templates\FhHRx.gif" alt="Loading...">
+
+
+</div>
+
 		</td>
 </tr>
 </tbody>
 </table>
 	  </div>
 
-     
 
-        <!--<form id="uploadForm" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="imageUpload">Upload Image:</label>
-                <input type="file" class="form-control" id="imageUpload" name="imageUpload">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Upload Image</button>
-            </div>
-        </form>-->
-        <div id="loadingGif" style="display:none">
-            <img src="https://i.stack.imgur.com/FhHRx.gif" alt="Loading...">
-        </div>
-       
-        <div id="result">
-              <img id="picture" src="data:image/jpeg;base64,{{ img_data }}">
-        </div>
+
+
+
     </div>
-    <script>
+<script>
 
-       /* $(document).ready(function(){
-            $('#uploadForm').on('submit', function(e){
-                e.preventDefault();
-                $('#loadingGif').show();
-                $.ajax({
-                    url: 'http://127.0.0.1:8001/home', // Replace with your backend script URL
-                    type: 'POST',
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    success: function(response){
-                        $('#loadingGif').hide();
-                        $('#result').html(response);
-                    }
-                });
-            });
-        });
-		
-		$(document).ready(function() {
-			$("#my-heading").hover(function() {
-				$(this).animate({ color: "#FF5733" }, 200);
-							}, function() {
-					$(this).animate({ color: "#000000" }, 200);
-				});
-				});
-				
-				 $(document).ready(function() {
-    $("#my-heading").animate({
-      fontSize: "5rem",
-      letterSpacing: "0.1rem",
-      opacity: 1
-    }, 1500);
-  });
-$(function() {
-  var form = $('#uploadForm');
-  var fileInput = $('#imageFile');
-
-  form.submit(function(event) {
-    event.preventDefault();
-
-    // Get the file that was selected
-    var file = fileInput[0].files[0];
-
-    // Create a new FormData object to send the file
-    var formData = new FormData();
-    formData.append('file', file);
-
-    // Use AJAX to upload the file
-    $.ajax({
-      url: '/home',
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function(data) {
-        // Handle success
-        console.log(data);
-      },
-      error: function(xhr, status, error) {
-        // Handle error
-        console.log(error);
-      }
-    });
-  });
+    const button = document.getElementById("load-button");
+const image = document.getElementById('image');
+const loadingGif = document.getElementById("loading");
+ document.getElementById('loading');
+ function myFunction() {
+  loadingGif.style.display = 'block';
+   window.location = "http://127.0.0.1:8001/home";
+}
+function myfunctionOne() {
+   loadingGif.style.display = 'none';
+    image.style.display = 'block';
+    image.src = 'data:image/jpeg;base64,{{ img_data }}';
+}
+const chooseFile = document.getElementById("imageFile");
+const imgPreview = document.getElementById("img-preview");
+chooseFile.addEventListener("change", function () {
+  getImgData();
 });
-*/
+function getImgData() {
+  const files = chooseFile.files[0];
+  if (files) {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(files);
+    fileReader.addEventListener("load", function () {
+      imgPreview.style.display = "block";
+      imgPreview.innerHTML = '<img src="' + this.result + '" />';
+    });
+  }
+}
+
+window.onload = function() {
+    const files = chooseFile.files[0];
+    if (files) {
+       const fileReader = new FileReader();
+    fileReader.readAsDataURL(files);
+    fileReader.addEventListener("load", function () {
+      imgPreview.style.display = "block";
+      imgPreview.innerHTML = '<img src="' + this.result + '" />';
+    });
+    }
+}
 
     </script>
 </body>
